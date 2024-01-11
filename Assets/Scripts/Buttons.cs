@@ -2,7 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Buttons : MonoBehaviour
 {
-    public void OnRaffleButtonClick() => SceneManager.LoadScene(SceneNames.RaffleSceneName);
+    public void GoToMenuScene() => SceneManager.LoadScene(SceneNames.MenuSceneName);
+    public void GoToPlayerScene() => SceneManager.LoadScene(SceneNames.PlayerSceneName);
+    public void GoToRaffleScene() => SceneManager.LoadScene(SceneNames.RaffleSceneName);
 
-    public void OnPlayerButtonClick() => SceneManager.LoadScene(SceneNames.PlayerSceneName);
 }

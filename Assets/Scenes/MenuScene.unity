@@ -209,7 +209,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2086732639}
         m_TargetAssemblyTypeName: Buttons, Assembly-CSharp
-        m_MethodName: OnRaffleButtonClick
+        m_MethodName: GoToRaffleScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -800,7 +800,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2086732639}
         m_TargetAssemblyTypeName: Buttons, Assembly-CSharp
-        m_MethodName: OnPlayerButtonClick
+        m_MethodName: GoToPlayerScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
