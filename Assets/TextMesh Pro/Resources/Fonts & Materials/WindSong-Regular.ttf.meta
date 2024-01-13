@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 24c0bcc3731858e4cba651731372430d
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - WindSong
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 943d34d9c03b56641983c34a72acf800, type: 3}
+  - {fileID: 12800000, guid: 80ac164c1f96bb741a82b7c42552aa86, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
