@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class BingoCardsGenerator : MonoBehaviour
 {
     [SerializeField] GameObject bingoCardPrefab;
+    [SerializeField] GameObject bingoCardsContent;
     [SerializeField] int numberOfBingoCards;
     [SerializeField] int numberOfWordsPerBingoCard;
 
@@ -12,20 +15,22 @@ public class BingoCardsGenerator : MonoBehaviour
         CreateBingoCardButtons();
     }
 
-    private void SetBingoCardWords(int cardNumber)
+    private List<string> SetBingoCardWords(int cardNumber)
     {
-        for (int wordNumber = 0; wordNumber < numberOfWordsPerBingoCard; wordNumber++)
-        {
+        List<string> wordsList = new();
+        for (int wordNumber = 0, offset = 1; wordNumber < numberOfWordsPerBingoCard; wordNumber++, offset += (1 + (cardNumber / WordsList.Words.Count)))
+            wordsList.Add(WordsList.Words[((cardNumber % WordsList.Words.Count) + offset) % WordsList.Words.Count]);
 
-        }
+        print(string.Join("\n", wordsList));
+        return wordsList;
     }
 
     private void CreateBingoCardButtons()
     {
         for(int cardNumber = 0; cardNumber < numberOfBingoCards; cardNumber++)
         {
-            Instantiate(bingoCardPrefab);
-            SetBingoCardWords(cardNumber);
+            BingoCardData bingoCardData = Instantiate(bingoCardPrefab, bingoCardsContent.transform).GetComponentInChildren<BingoCardData>();
+            bingoCardData.SetInitialValues(cardNumber + 1, SetBingoCardWords(cardNumber));
         }
     }
 }
