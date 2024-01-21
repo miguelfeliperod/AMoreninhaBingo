@@ -875,7 +875,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bingoCardPrefab: {fileID: 4908624037887345152, guid: 350be3b463816364daf5e1a8a8a48f83, type: 3}
   bingoCardsContent: {fileID: 1371427872}
-  numberOfBingoCards: 30
+  maxNumberOfBingoCards: 20
   numberOfWordsPerBingoCard: 5
 --- !u!114 &1119791991
 MonoBehaviour:
