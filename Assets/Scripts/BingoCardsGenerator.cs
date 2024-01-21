@@ -1,36 +1,70 @@
 using System;
 using System.Collections.Generic;
-using Unity.Burst.Intrinsics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BingoCardsGenerator : MonoBehaviour
 {
     [SerializeField] GameObject bingoCardPrefab;
     [SerializeField] GameObject bingoCardsContent;
-    [SerializeField] int numberOfBingoCards;
+    [SerializeField] int maxNumberOfBingoCards;
     [SerializeField] int numberOfWordsPerBingoCard;
+
+    List<List<string>> wordsGroups = new List<List<string>>();
+    List<List<string>> bingoWordLists = new List<List<string>>();
 
     void Start()
     {
-        CreateBingoCardButtons();
+        CreateWordGroups();
+        InstantiateBingoCardButtons();
     }
 
-    private List<string> SetBingoCardWords(int cardNumber)
+    private void CreateWordGroups()
     {
-        List<string> wordsList = new();
-        for (int wordNumber = 0, offset = 1; wordNumber < numberOfWordsPerBingoCard; wordNumber++, offset += (1 + (cardNumber / WordsList.Words.Count)))
-            wordsList.Add(WordsList.Words[((cardNumber % WordsList.Words.Count) + offset) % WordsList.Words.Count]);
+        // Inicializa listas de grupos de palavras
+        for (int groupIndex = 0; groupIndex < numberOfWordsPerBingoCard; groupIndex++)
+            wordsGroups.Add(new List<string>());
 
-        print(string.Join("\n", wordsList));
-        return wordsList;
+        for (int wordIndex = 0; wordIndex < WordsList.Words.Count; wordIndex++)
+            wordsGroups[wordIndex % numberOfWordsPerBingoCard].Add(WordsList.Words[wordIndex]);
+
+        foreach(var list in wordsGroups)
+        print(string.Join("\n", list));
+
+        CreateAllBingoCardLists();
     }
 
-    private void CreateBingoCardButtons()
+    private void CreateAllBingoCardLists()
     {
-        for(int cardNumber = 0; cardNumber < numberOfBingoCards; cardNumber++)
+        // Inicializa listas palavras para cada cartela
+        for (int bingoCardIndex = 0; bingoCardIndex < maxNumberOfBingoCards; bingoCardIndex++)
+            bingoWordLists.Add(new List<string>());
+
+        // Seta valores auxiliares
+        int totalNumberOfWords = WordsList.Words.Count;
+        int numberOfGroups = numberOfWordsPerBingoCard;
+        int wordsPerGroup = totalNumberOfWords / numberOfGroups;
+        int offsetToNextNumberRepetition = wordsGroups[0].Count;
+
+        // Preenche listas com as palavras variadas
+        for (int groupIndex = 0; groupIndex < numberOfGroups; groupIndex++)
+        {
+            int maxNumberOfEachWord = (int)(Math.Ceiling((double)maxNumberOfBingoCards / (double)wordsGroups[groupIndex].Count));
+            for(int bingoWordListIndex = 0; bingoWordListIndex <  maxNumberOfBingoCards; bingoWordListIndex++)
+            {
+                bingoWordLists[bingoWordListIndex] = wordsGroups[bingoWordListIndex % wordsGroups.Count];
+            }
+        }
+        foreach (List<string> list in bingoWordLists)
+            print(string.Join("\n", list));
+    }
+
+    private void InstantiateBingoCardButtons()
+    {
+        for (int cardNumber = 0; cardNumber < maxNumberOfBingoCards; cardNumber++)
         {
             BingoCardData bingoCardData = Instantiate(bingoCardPrefab, bingoCardsContent.transform).GetComponentInChildren<BingoCardData>();
-            bingoCardData.SetInitialValues(cardNumber + 1, SetBingoCardWords(cardNumber));
+            //bingoCardData.SetInitialValues(cardNumber + 1, );
         }
     }
 }
